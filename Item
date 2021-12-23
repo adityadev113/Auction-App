@@ -1,0 +1,122 @@
+package com.example.itemcrud.model;
+
+import javax.persistence.*;
+import java.util.Date;
+
+@Entity
+public class Item {
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
+
+    @Column(nullable = false)
+    private String name;
+
+    //@Column(columnDefinition = "TEXT")
+    private String description;
+
+    private String photo;
+
+    @Column(name = "OWNERID", nullable = false)
+    private String ownerId;
+
+    @Column(name = "BIDSTARTINGAMOUNT", nullable = false)
+    private Double bidStartingAmount;
+
+    @Column(name = "BIDINCREMENT", columnDefinition = "double default 0.01")
+    private Double bidIncrement;
+
+    @Column(name = "BIDSTARTDATETIME")
+    private Date bidStartDatetime;
+
+    @Column(name = "BIDENDDATETIME")
+    private Date bidEndDatetime;
+
+    public Item(Long id, String name, String description, String photo, String ownerId, Double bidStartingAmount, Double bidIncrement, Date bidStartDatetime, Date bidEndDatetime) {
+        this.id = id;
+        this.name = name;
+        this.description = description;
+        this.photo = photo;
+        this.ownerId = ownerId;
+        this.bidStartingAmount = bidStartingAmount;
+        this.bidIncrement = bidIncrement;
+        this.bidStartDatetime = bidStartDatetime;
+        this.bidEndDatetime = bidEndDatetime;
+    }
+
+    public Item() {
+    }
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
+    public String getPhoto() {
+        return photo;
+    }
+
+    public void setPhoto(String photo) {
+        this.photo = photo;
+    }
+
+    public String getOwnerId() {
+        return ownerId;
+    }
+
+    public void setOwnerId(String ownerId) {
+        this.ownerId = ownerId;
+    }
+
+    public Double getBidStartingAmount() {
+        return bidStartingAmount;
+    }
+
+    public void setBidStartingAmount(Double bidStartingAmount) {
+        this.bidStartingAmount = bidStartingAmount;
+    }
+
+    public Double getBidIncrement() {
+        return bidIncrement;
+    }
+
+    public void setBidIncrement(Double bidIncrement) {
+        this.bidIncrement = bidIncrement;
+    }
+
+    public Date getBidStartDatetime() {
+        return bidStartDatetime;
+    }
+
+    public void setBidStartDatetime(Date bidStartDatetime) {
+        this.bidStartDatetime = bidStartDatetime;
+    }
+
+    public Date getBidEndDatetime() {
+        return bidEndDatetime;
+    }
+
+    public void setBidEndDatetime(Date bidEndDatetime) {
+        this.bidEndDatetime = bidEndDatetime;
+    }
+}
