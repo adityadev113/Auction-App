@@ -1,0 +1,10 @@
+@Test
+public void getAllItems_returnsEmptyArray() {
+    assertEquals(Collections.emptyList(), itemController.getAllItems());
+}
+
+@Test
+public void getAllItems_callsItemService() {
+    Mockito.when(itemService.getAllItems()).thenReturn(itemList);
+    assertEquals(itemList, itemController.getAllItems());
+}
