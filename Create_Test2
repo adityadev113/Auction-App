@@ -1,0 +1,6 @@
+@Test
+    public void getItemById_callServiceGetItemById() {
+        itemController.getItemById(itemId);
+
+        Mockito.verify(itemService).getItemById(itemId);
+    }
