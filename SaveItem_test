@@ -1,0 +1,7 @@
+@Test
+public void saveItem_returnsSavedItem() {
+        Item sentItem = new Item();
+        Mockito.when(itemService.saveItem(sentItem)).thenReturn(sampleItem);
+
+        assertEquals(sampleItem, itemController.saveItem(sentItem));
+        }
