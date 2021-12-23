@@ -1,0 +1,78 @@
+package com.example.itemcrud.service;
+
+import com.example.itemcrud.model.Item;
+import com.example.itemcrud.repository.ItemRepository;
+import org.springframework.http.HttpStatus;
+import org.springframework.stereotype.Service;
+import org.springframework.web.server.ResponseStatusException;
+
+import java.util.List;
+
+@Service
+public class ItemService {
+
+    ItemRepository itemRepository;
+
+    public ItemService(ItemRepository itemRepository) {
+        this.itemRepository = itemRepository;
+    }
+
+    public List<Item>   getAllItems() {
+        return itemRepository.findAll();
+    }
+
+    public Item getItemById(Long itemId) {
+        return itemRepository.findById(itemId).orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Item with that ID does not exist."));
+    }
+
+    public Item saveItem(Item sentItem) {
+
+        if(sentItem.getId() != null) {
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "You can not save an item with an ID.");
+        }
+
+        if(sentItem.getName() == null) {
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Name cannot be Null");
+        } else if(sentItem.getOwnerId() == null) {
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "OwnerId cannot be Null");
+        } else if(sentItem.getBidStartingAmount() == null) {
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Bid starting amount cannot be Null");
+//        } else if(sentItem.getBidStartDatetime() == null) {
+//            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Bid start date time cannot be Null");
+//        } else if(sentItem.getBidEndDatetime() == null) {
+//            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Bid end date time cannot be Null");
+        }
+
+        return itemRepository.save(sentItem);
+    }
+
+    public Item updateItem(Item sentItem) {
+
+
+        if(sentItem.getName() == null) {
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Name cannot be Null");
+        } else if(sentItem.getOwnerId() == null) {
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "OwnerId cannot be Null");
+        } else if(sentItem.getBidStartingAmount() == null) {
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Bid starting amount cannot be Null");
+        } else if(sentItem.getBidStartDatetime() == null) {
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Bid start date time cannot be Null");
+        } else if(sentItem.getBidEndDatetime() == null) {
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Bid end date time cannot be Null");
+        } else if (sentItem.getId() == null) {
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "cannot update item with null ID");
+        }
+
+
+        itemRepository.findById(sentItem.getId()).orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Item with that ID does not exist."));
+        return itemRepository.save(sentItem);
+    }
+
+    public void deleteItem(Long itemId) {
+        itemRepository.findById(itemId).orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Item with that ID does not exist."));
+        itemRepository.deleteById(itemId);
+    }
+
+
+
+}
