@@ -1,0 +1,6 @@
+@Test
+    public void getItemById_returnsItem() {
+        Mockito.when(itemService.getItemById(itemId)).thenReturn(sampleItem);
+
+        assertEquals(sampleItem, itemController.getItemById(itemId));
+    }
