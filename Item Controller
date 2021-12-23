@@ -1,0 +1,49 @@
+package com.example.itemcrud.controller;
+
+import com.example.itemcrud.model.Item;
+import com.example.itemcrud.service.ItemService;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.ArrayList;
+import java.util.List;
+
+@RestController
+@RequestMapping("/items")
+public class ItemController {
+
+    ItemService itemService;
+
+    public ItemController(ItemService itemService) {
+        this.itemService = itemService;
+    }
+
+    @GetMapping
+    public List<Item> getAllItems() {
+        return itemService.getAllItems();
+    }
+
+    @GetMapping("/ {itemId}")
+    public Item getItemById(@PathVariable Long itemId) {
+        return itemService.getItemById(itemId);
+    }
+    @PostMapping
+    @ResponseStatus(HttpStatus.CREATED)
+    public Item saveItem(@RequestBody Item sentItem) {
+        return itemService.saveItem(sentItem);
+    }
+
+    @PutMapping
+    public Item updateItem(@RequestBody Item sampleItem) {
+        return itemService.updateItem(sampleItem);
+    }
+
+    @DeleteMapping("/{itemId}")
+    @ResponseStatus(value = HttpStatus.NO_CONTENT)
+    public void deleteItem(@PathVariable Long itemId) {
+        itemService.deleteItem(itemId);
+    }
+
+
+}
